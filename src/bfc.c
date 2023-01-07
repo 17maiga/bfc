@@ -10,10 +10,7 @@ int main(int argc, char **argv)
 {
     char *bf_in, *c_out, *exec_out;
 
-    if (argc<4){
-        usage();
-        exit(1);
-    }
+    if (argc<4) usage();
 
     bf_in = argv[1];
     c_out = argv[2];
@@ -21,9 +18,9 @@ int main(int argc, char **argv)
 
     infile = fopen(bf_in, "r");
 
-    if(infile != NULL) {
+    if (infile != NULL) {
         outfile = fopen(c_out, "w");
-        generate (infile);
+        generate(infile);
         fclose(infile);
         fclose(outfile);
         char compile_instructions[] = "gcc -o ";
@@ -47,8 +44,8 @@ void generate () {
     fprintf(outfile, "\n * Made by 17maiga");
     fprintf(outfile, "\n**/\n#include <stdio.h>\n#include <stdlib.h>\n");
     fprintf(outfile, "\nint main() {\nchar a[%d], *ptr = a;\n", buffer_size);
-    while((c = fgetc(infile)) != EOF) {
-        switch(c){
+    while ((c = fgetc(infile)) != EOF) {
+        switch (c) {
             case '<': 
                 if (ptr > 0) {
                     fprintf(outfile, "ptr--;\n");
@@ -101,4 +98,5 @@ void generate () {
 void usage() {
     printf("The bfc compiler, by 17maiga\n");
     printf("Usage: \"bfc input_file_name.bf output_file_name.c exec_file_name\"\n");
+    exit(1);
 }
